@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Alexander Alldridge (Cologne)" />
+  <title>Operator K-Theory for Disordered Topological Insulators and Superconductors</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="slides_files/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+
+<link rel="stylesheet" href="slides_files/reveal.js-3.3.0.1/css/theme/white.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="reveal.css"/>
+    <link rel="stylesheet" href="whitesmall.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: {
+          extensions: ["AMScd.js"],
+          Macros: {
+          ger: ["{\\mathfrak #1}", 1], 
+          cat: ["{\\mathbf #1}", 1],
+          sh: ["{\\mathcal #1}", 1],
+          lat: ["{\\textit #1}", 1],
+          ev: "{\\bar 0}",
+          odd: "{\\bar 1}",
+          defi: "{\\hskip 5mu{:\\mkern-1.2mu =}\\hskip 5mu}",
+          vphi: "{\\varphi}",
+          vrho: "{\\varrho}",
+          vtheta: "{\\vartheta}",
+          vkappa: "{\\varkappa}",
+          eps: "{\\varepsilon}",
+          nats: "{\\mathbb{N}}",
+          ints: "{\\mathbb{Z}}",
+          rats: "{\\mathbb{Q}}",
+          reals: "{\\mathbb{R}}",
+          cplxs: "{\\mathbb{C}}",
+          knums: "{\\mathbb K}",
+          aff: "{\\mathbb A}",
+          vvoid: "{\\varnothing}",
+          sle: "{\\hskip 5mu\\leqslant\\hskip 5mu}",
+          sge: "{\\hskip 5mu\\geqslant\\hskip 5mu}",
+          size: ["{{#1}{#2}{#3}{#4}{#5}}", 5],
+          Size: ["{\\bigl{#1}{#2}\\bigm{#3}{#4}\\bigr{#5}}", 5],
+          Sizze: ["{\\bigl{#1}{#2}{#3}{#4}\\bigr{#5}}", 5],
+          SSizze: ["{\\biggl{#1}{#2}{#3}{#4}\\biggr{#5}}", 5],
+          SSSizze: ["{\\Bigl{#1}{#2}{#3}{#4}\\Bigr{#5}}", 5],
+          sdual: ["{\\size{\\langle}{#1}{|}{#2}{\\rangle}}", 2],
+          Sdual: ["{\\Size{\\langle}{#1}{|}{#2}{\\rangle}}", 2],
+          dual: ["{\\size{\\langle}{#1}{,}{#2}{\\rangle}}", 2],
+          Dual: ["{\\Sizze{\\langle}{#1}{,}{#2}{\\rangle}}", 2],
+          rscp: ["{\\size{(}{#1}{,}{#2}{)}}", 2],
+          Rscp: ["{\\Sizze{(}{#1}{,}{#2}{)}}", 2],
+          braces: ["{\\size{\\{}{#1}{}{}{\\}}}", 1],
+          Braces: ["{\\Sizze{\\{}{#1}{}{}{\\}}}", 1],
+          BBraces: ["{\\SSizze{\\{}{#1}{}{}{\\}}}", 1],
+          BBBraces: ["{\\SSSizze{\\{}{#1}{}{}{\\}}}", 1],
+          parens: ["{\\size{(}{#1}{}{}{)}}", 1],
+          Parens: ["{\\Sizze{(}{#1}{}{}{)}}", 1],
+          set: ["{\\size{\\{}{#1}{|}{#2}{\\}}}", 2],
+          Set: ["{\\Size{\\{}{#1}{|}{#2}{\\}}}", 2],
+          norm: ["{\\size{\\lVert}{#1}{}{}{\\rVert}}", 1],
+          Norm: ["{\\Sizze{\\lVert}{#1}{}{}{\\rVert}}", 1],
+          ket: ["\\size{\\lvert}{#1}{}{}{\\rangle}", 1],
+          Ket: ["\\Sizze{\\lvert}{#1}{}{}{\\rangle}", 1],
+          bra: ["\\size{\\langle}{#1}{}{}{\\rvert}", 1],
+          Bra: ["\\Sizze{\\langle}{#1}{}{}{\\rvert}", 1],
+          rk: ["{\\mathop{\\mathrm{rk}}}"],
+          Ad: ["{\\mathop{\\mathrm{Ad}}}"],
+          id: ["{\\mathop{\\mathrm{id}}}"],
+          endo: ["{\\mathrm{End}\\parens{#1}}", 1],
+          End: ["{\\mathrm{End}\\Parens{#1}}", 1],
+          Cl: "{\\mathrm C\\ell}",
+          Ccl: "{\\cplxs\\ell}"
+        }
+      }
+    });
+    </script>
+    
+    
+    <!-- 
+    \(
+    % \DMO\dom{\mathrm{dom}}
+    % \DMO\cork{\mathrm{cork}}
+    % \DMO\ad{\mathrm{ad}}
+    % \DMO\GL{\mathrm{GL}}
+    % \DMO\pr{\mathrm{pr}}
+    % \DMO\gr{\mathrm{gr}}
+    % \DMO\sll{\ger{sl}}
+    % \DMO\sdim{\mathrm{sdim}}
+    % \DMO\sgn{\mathrm{sgn}}
+    % \DMO\re{\mathrm{Re}}
+    % \DMO\coker{\mathrm{coker}}
+    % \DMO\im{\mathrm{im}}
+    % \DMO\coim{\mathrm{coim}}
+    % \DMO\codim{\mathrm{codim}}
+    % \DMO\supp{\mathrm{supp}}
+    % \DMO\str{\mathrm{str}}
+    % \DMO\tr{\mathrm{tr}}
+    % \DMO\qtr{\mathrm{qtr}}
+    % \DMO\res{\mathrm{res}}
+    % \DMO\ind{\mathrm{ind}}
+    % \DMO\vol{\mathrm{vol}}
+    % \DMO\Spec{\mathrm{Spec}}
+    % \DMO\diag{\mathrm{diag}}
+    % \DMO\Herm{\mathrm{Herm}}
+    % \DMO\eval{\mathrm{ev}}
+    % \DMO\pt{\mathrm{pt}}
+    % \DMO\Index{\mathrm{Index}}
+    % \DMO\esssup{\mathrm{ess\,sup}}
+    % \DMO\esssupp{\mathrm{ess\,supp}}
+    % \DMO\Ass{\mathrm{Ass}}
+    % \DMO\soc{\mathrm{soc}}
+    % \DMO\dist{\mathrm{dist}}
+    % \DMO\Top{\cat{Top}}
+    % \DMO\Sets{\cat{Sets}}
+    % \DMO\SMan{\cat{SMan}}
+    % \DMO\Man{\cat{Man}}
+    % \DMO\SSp{\cat{SSp}}
+    % \DMO\SSch{\cat{SSch}}
+    % \DMO\Ob{\mathrm{Ob}}
+    % \newcommand\ssplfg[2][\empty]{%
+    %   \smash{\SSp
+    %     \ifx#1\empty%
+    %       ^{\mathrm{lfg}}_{#2}
+    %     \else
+    %       ^{#1,\mathrm{lfg}}_{#2}
+    %     \fi
+    %   }
+    % }
+    % \makeatletter
+    % \def\Set@Scallop[#1]#2#3{{#1}\Parens{#2}{#3}}
+    % \newcommand\DeclareScalableOperator[2]{%
+    %   \expandafter\def\csname#1\endcsname{\@ifnextchar[{{#2}\Set@Scallop}{{#2}\Set@Scallop[{}]}}
+    % }
+    % \makeatother
+    % \def\DSO{\DeclareScalableOperator}
+    % \DSO{Presh}{\cat{Presh}}
+    % \DSO{Sh}{\cat{Sh}}
+    % \DSO{ShHom}{\sh Hom} % Hom sheaf
+    % \DSO{ShGHom}{\underline{\sh Hom}} % inner sheaf Hom
+    % \DSO{ShEnd}{\sh End} % End sheaf
+    % \DSO{ShGEnd}{\underline{\sh End}} % inner sheaf End
+    % \DSO{ShDer}{\sh Der} % Der sheaf 
+    % \DSO{ShGDer}{\underline{\sh Der}} % inner sheaf Der
+    % \DSO{ShCliff}{\sh C\text{\emph{liff}}} % Cliff sheaf 
+    % \DSO{Db}{\sh Db}
+    % \DSO{Ct}{\mathcal{C}} % continuous functions/maps
+    % \DSO{Hom}{\mathrm{Hom}} % homomorphisms
+    % \DSO{Aut}{\mathrm{Aut}} 
+    % \DSO{Iso}{\mathrm{Iso}} 
+    % \DSO{GAut}{\underline{\mathrm{Aut}}} 
+    % \DSO{ABer}{\Abs0{\mathrm{Ber}}}
+    % \DSO{Ber}{\mathrm{Ber}}
+    % \DSO{Coind}{\mathrm{Coind}}
+    % \DSO{Der}{\mathrm{Der}}
+    % \DSO{GDer}{\underline{\mathrm{Der}}}
+    % \DSO{GHom}{\underline{\mathrm{Hom}}} % inner Hom
+    % \DSO{GEnd}{\underline{\mathrm{End}}} % inner End
+    % \DSO{Uenv}{\ger U}
+    % \DSO{BAut}{\mathrm{BAut}}
+    % \DSO{GBAut}{\underline{\mathrm{BAut}}}
+    % \DSO{PsAut}{\mathrm{PsAut}}
+    % \DSO{GPsAut}{\underline{\mathrm{PsAut}}}
+    % \DMO\Cl{\mathrm C\ell} % Clifford algebra
+    \) -->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Operator K-Theory for Disordered Topological Insulators and Superconductors</h1>
+    <h2 class="author">Alexander Alldridge (Cologne)</h2>
+    <h3 class="date">Gauge Theory and Topological Quantum Matter, Bad Honnef, September 20, 2018</h3>
+Based on joint work with Christopher Max (Cologne).<br /> Supported by DFG grants AL 698/3-1 and TRR 183.<br /> The hospitality of the ITP Cologne and the UC Berkeley Maths Department are gratefully acknowledged.
+</section>
+
+<section><section id="the-importance-of-being-real" class="title-slide slide level1"><h1>The importance of being real</h1></section><section id="the-reality-of-nambu-space" class="slide level2">
+<h2>The reality of Nambu space</h2>
+<p>Let <span class="math inline">\(\sh V\)</span> be the Hilbert space of fermionic single particle creation operators <span class="math inline">\(c_i^\dagger\)</span>. The dual space <span class="math inline">\(\sh V^*\)</span> consists of single particle annihilation operators <span class="math inline">\(c_i\)</span>. There is a fundamental anti-linear operation <span class="math display">\[
+  c_i^\dagger\longmapsto c_i.
+\]</span></p>
+<div class="fragment">
+<p>Formally, this is the <span class="phl"><em>Fréchet–Riesz isomorphism</em></span> <span class="math display">\[
+  R:\sh V\longrightarrow\sh V^*,\quad (R\psi_1)(\psi_2)\defi\langle\psi_1\mid\psi_2\rangle.
+\]</span></p>
+</div>
+<div class="fragment">
+<p>On <em>Nambu space</em> <span class="math inline">\(\sh W\defi\sh V\oplus\sh V^*\)</span>, this assembles to <span class="math display">\[
+  \gamma\defi
+  \begin{pmatrix}
+    0&amp;R^{-1}\\ R&amp;0
+  \end{pmatrix},\quad\gamma^*=\gamma,\quad\gamma^2=1.
+\]</span></p>
+<blockquote>
+<p><strong class="ghl" style="font-style: normal;">Definition.</strong> An anti-unitary endomorphism <span class="math inline">\(\gamma\)</span> of a Hilbert space <span class="math inline">\(\sh W\)</span> is called a <span class="yhl"><strong>real structure</strong></span> if <span class="math inline">\(\gamma^2=1\)</span>. Such a pair <span class="math inline">\((\sh W,\gamma)\)</span> is called a <span class="yhl"><strong>real Hilbert space</strong></span>.</p>
+</blockquote>
+</div>
+</section><section id="operators-on-nambu-space" class="slide level2">
+<h2>Operators on Nambu space</h2>
+<p>Recall that a subalgebra <span class="math inline">\(A\subseteq\sh L(\sh H)\)</span>, where <span class="math inline">\(\sh H\)</span> is some Hilbert space, is called a <span class="phl"><em>C<span class="math inline">\(^*\)</span>-algebra</em></span> if <span class="math inline">\(A\)</span> is closed under the norm and taking the adjoint.</p>
+<div class="fragment">
+<p>The real structure <span class="math inline">\(\gamma\)</span> encodes the fermionic CAR relations: <span class="math display">\[
+  \{\psi_1,\psi_2\}\defi\langle\gamma\psi_1\mid\psi_2\rangle\quad\Longrightarrow\quad\{c_i^\dagger,c_j\}=\delta_{ij}.
+\]</span></p>
+<p>A fermionic Hamiltonian has to preserve the CAR relations (<span class="phl"><em>Fermi constraint</em></span>) <span class="math display">\[
+  \{H\psi_1,\psi_2\}+\{\psi_1,H\psi_2\}=0.
+\]</span></p>
+</div>
+<div class="fragment">
+<p>In terms of <span class="math inline">\(\gamma\)</span>, this can be equivalently expressed as <span class="math display">\[
+  \gamma H^*\gamma=-H.
+\]</span> (Here, <span class="math inline">\(H^*\)</span> is a mathematician’s notation for the adjoint operator <span class="math inline">\(H^\dagger\)</span>.)</p>
+</div>
+<div class="fragment">
+<blockquote>
+<p><strong class="ghl" style="font-style: normal;">Definition.</strong> Let <span class="math inline">\(A\)</span> be a C<span class="math inline">\(^*\)</span>-algebra. An anti-linear involutive <span class="math inline">\(*\)</span>-automorphism <span class="math inline">\(x\longmapsto\overline x\)</span> is called a <span class="yhl"><strong>real structure</strong></span>. The pair <span class="math inline">\((A,\overline\cdot)\)</span> is a <span class="yhl"><strong>real C<span class="math inline">\(^*\)</span>-algebra</strong></span>. We say <span class="math inline">\(x\)</span> is <span class="yhl"><strong>real</strong>/<strong>imaginary</strong></span> if <span class="math inline">\(\overline x=\pm x\)</span>.</p>
+</blockquote>
+</div>
+<div class="fragment">
+<p>The algebra <span class="math inline">\(\sh L(\sh W)\)</span> of bounded operators on <span class="math inline">\(\sh W\)</span> carries the real structure <span class="math display">\[
+  \overline x\defi \gamma x\gamma.
+\]</span> Thus, the Fermi constraint on <span class="math inline">\(H\)</span> is equivalent to <span class="math inline">\(H\)</span> being imaginary (and Hermitian).</p>
+</div>
+</section><section id="time-reversal-changes-reality" class="slide level2">
+<h2>Time reversal changes reality</h2>
+<p><em>Time reversal</em> is an anti-unitary endomorphism of <span class="math inline">\(\sh V\)</span> such that <span class="math display">\[
+  T^2=-1.
+\]</span></p>
+<div class="fragment">
+<blockquote>
+<p><strong class="ghl" style="font-style: normal;">Definition.</strong> An anti-unitary endomorphism <span class="math inline">\(T\)</span> of a Hilbert space <span class="math inline">\(\sh V\)</span> is called a <span class="yhl"><strong>quaternionic structure</strong></span> if <span class="math inline">\(T^2=-1\)</span>. The pair <span class="math inline">\((\sh V,T)\)</span> is a <span class="yhl"><strong>quaternionic Hilbert space</strong></span>.</p>
+</blockquote>
+</div>
+<div class="fragment">
+<p>Given a quaternionic structure <span class="math inline">\(T\)</span> on <span class="math inline">\(\sh V\)</span>, the bounded operators obtain a <span class="phl"><em>real structure</em></span>: <span class="math display">\[
+  \overline x\defi T^*xT=-TxT.
+\]</span></p>
+</div>
+<div class="fragment">
+<p><strong class="ghl" style="font-style: normal;">Example.</strong> On <span class="math inline">\(\def\cplxs{\mathbb C}V=\cplxs^2\)</span>, we may consider the quaternionic structure <span class="math display">\[
+  \def\ger{\mathfrak}
+  \ger c\defi
+  \begin{pmatrix}
+    0&amp;\mathsf c\\-\mathsf c&amp;0
+  \end{pmatrix},
+\]</span> where <span class="math inline">\(\mathsf c\)</span> is complex conjugation. The real elements in <span class="math inline">\(M_2(\cplxs)=\sh L(\cplxs^2)\)</span> for <span class="math inline">\(\ger c\)</span> are the <span class="phl"><em>quaternions</em></span> <span class="math display">\[
+  \overline x=x\quad\Longleftrightarrow\quad x=
+  \begin{pmatrix}
+    \alpha&amp;\beta\\
+    \overline\beta&amp;\overline\alpha
+  \end{pmatrix}.
+\]</span> We denote the corresponding real C<span class="math inline">\(^*\)</span>-algebra by <span class="math inline">\(\mathbb H_\cplxs\)</span>.</p>
+</div>
+</section></section>
+<section><section id="ground-states" class="title-slide slide level1"><h1>Ground states</h1></section><section id="the-algebra-of-tight-binding-observables" class="slide level2">
+<h2>The algebra of tight-binding observables</h2>
+<p>We work on a square lattice <span class="math inline">\(\Lambda=\ints^d\)</span> with on-site degrees of freedom encoded in the finite-dimensional Hilbert space <span class="math inline">\(V\)</span>. Thus <span class="math display">\[
+  \sh V=\ell^2(\Lambda)\otimes V,\quad\sh W=\sh V\oplus\sh V^*=\ell^2(\Lambda)\otimes W,\quad W\defi V\oplus V^*.
+\]</span></p>
+<div class="fragment">
+<p>An operator <span class="math inline">\(O\in\sh L(\sh W)\)</span> has <span class="phl"><em>finite hopping</em></span> (or is <span class="phl"><em>controlled</em></span>) if <span class="math display">\[
+  \exists R&gt;0\colon\quad O=\textstyle\sum_{\norm{x-y}&lt;R}O_{xy}\ket x\bra y,\quad O_{xy}\in\endo W.
+\]</span> (Here, the convergence is in the weak operator topology.)</p>
+</div>
+<div class="fragment">
+<blockquote>
+<p><strong class="ghl" style="font-style: normal;">Definition/Proposition <span class="citation" data-cites="roe">(Roe 2003)</span>.</strong> Let <span class="math inline">\(C^*_u(\Lambda,W)\subseteq\sh L(\sh W)\)</span> be the norm closure of the set of controlled operators. Then <span class="math inline">\(C^*_u(\Lambda,W)\)</span> is a real C<span class="math inline">\(^*\)</span>-algebra.</p>
+</blockquote>
+<p>If we replace <span class="math inline">\(W\)</span> by <span class="math inline">\(\cplxs\)</span>, the resulting C<span class="math inline">\(^*\)</span>-algebra is denoted <span class="math inline">\(C^*_u(\Lambda)\)</span> and called the <em>uniform Roe algebra</em>. In general, we might call <span class="math inline">\(C^*_u(\Lambda,W)\)</span> the <em>algebra of tight-binding observables</em>.</p>
+</div>
+<div class="fragment">
+<blockquote>
+<p><strong class="ghl" style="font-style: normal;">Proposition <span class="citation" data-cites="roe">(Roe 2003)</span>.</strong> The algebra of <span class="yhl"><strong>translation-invariant</strong></span> tight-binding observables is <span class="math display">\[
+C^*_u(\Lambda,W)^{\ints^d}\cong\sh C(\reals^d/\Lambda)\otimes\endo W.
+\]</span> The isomorphism is given by <span class="math inline">\(O\longmapsto\Parens{k\longmapsto O(k)}\)</span>.</p>
+</blockquote>
+</div>
+</section><section id="enter-disorder" class="slide level2">
+<h2>Enter disorder</h2>
+<p>Disorder breaks translational invariance microscopically; but at a macroscopic level, it is preserved. How to model this fact?</p>
+<div class="fragment">
+<p>An argument of <span class="citation" data-cites="b86 b89">(Bellissard 1986; Bellissard 1992)</span> goes roughly as follows:</p>
+<ul>
+<li class="fragment">Observables are <span class="phl"><em>operator-valued functions</em></span> <span class="math inline">\(\omega\longmapsto O_\omega\)</span> on the <span class="phl"><em>space of disorder configurations</em></span> <span class="math inline">\(\Omega\)</span>.</li>
+<li class="fragment">Such configurations are given by <span class="phl"><em>crystalline defects</em></span>, so the translations <span class="math inline">\(\ints^d\)</span> act on <span class="math inline">\(\Omega\)</span>.</li>
+<li class="fragment">After compactification, <span class="math inline">\(\Omega\)</span> is a <span class="phl"><em>compact Hausdorff space</em></span> equipped with an <span class="phl"><em>action of <span class="math inline">\(\ints^d\)</span></em></span>.</li>
+<li class="fragment">Shifting <span class="math inline">\(\omega\)</span> by <span class="math inline">\(x\)</span> corresponds to transforming <span class="math inline">\(O_\omega\)</span> by the translation action <span class="math inline">\(U_x\)</span> on <span class="math inline">\(\sh W\)</span>: <span class="math display">\[
+O_{\omega\cdot x}=U_x^*O_\omega U_x,\quad\forall\omega\in\Omega,x\in\ints^d.
+\]</span></li>
+</ul>
+</div>
+<div class="fragment">
+<blockquote>
+<p><strong class="ghl" style="font-style: normal;">Definition.</strong> The algebra of macroscopically homogeneous tight-binding observables is <span class="math display">\[
+\mathbb A\defi\Set{O\in\sh C\Parens{\Omega,C^*_u(\Lambda,W)}}{\forall\omega,x\colon O_{\omega\cdot x}=U_x^*O_\omega U_x},
+\]</span> the real C<span class="math inline">\(^*\)</span>-algebra of equivariant maps from disorder configurations to tight-binding operators.</p>
+</blockquote>
+</div>
+</section><section id="ground-states-as-operators" class="slide level2">
+<h2>Ground states as operators</h2>
+<p>Let <span class="math inline">\(H\)</span> be a gapped Hamiltonian on <span class="math inline">\(\sh W\)</span>. Using the spectral decomposition <span class="math display">\[
+  H=\int_{\reals\setminus(-\eps,\eps)}\lambda\,dP(\lambda),
+\]</span> we define <span class="math display">\[
+  J\defi i\int_\eps^\infty dP(\lambda)-i\int_{-\infty}^{-\eps}dP(\lambda).
+\]</span></p>
+<div class="fragment">
+<p>Then we have <span class="math display">\[
+  J^2=-1,\quad J=-J^*,
+\]</span> and the Fermi constraint <span class="math inline">\(\overline H=-H\)</span> translates to <span class="math display">\[
+  \overline J=J.
+\]</span> We call <span class="math inline">\(J\)</span> an <span class="phl"><em>invariant quasi-particle vacuum</em></span> (or <span class="phl"><em>IQPV</em></span>) if <span class="math inline">\(H\)</span> is translation invariant, <em>cf.</em> <span class="citation" data-cites="rk-mrz">(Kennedy and Zirnbauer 2016)</span>.</p>
+</div>
+<div class="fragment">
+<blockquote>
+<p><strong class="ghl" style="font-style: normal;">Definition.</strong> A real unitary <span class="math inline">\(J\in\mathrm U(\mathbb A)\)</span> is called a <span class="yhl"><strong>disordered IQPV</strong></span> if <span class="math inline">\(J^2=-1\)</span>.</p>
+</blockquote>
+</div>
+</section></section>
+<section><section id="symmetries-in-a-class-of-their-own" class="title-slide slide level1"><h1>Symmetries, in a class of their own</h1></section><section id="physical-symmetries" class="slide level2">
+<h2>Physical symmetries</h2>
+<style>
+  #symtab1 {
+    opacity: 1;
+    visibility: inherit;
+  }
+
+  #symtab1.visible {
+    -webkit-transform: scale(0.7) translate(-50%,-25%);
+            transform: scale(0.7) translate(-50%,-25%);   
+  }
+
+  #symtab2 {
+    opacity: 1;
+    visibility: inherit;
+  }
+
+  #symtab2.visible {
+    -webkit-transform: translate(50%, 25%) scale(1.42);
+            transform: translate(50%, 25%) scale(1.42);   
+  }
+
+  #syms.visible {
+    -webkit-transform: translate(35%,-62%) scale(0.9);
+            transform: translate(35%,-62%) scale(0.9);   
+  }
+</style>
+<div id="symtab2" class="fragment" data-fragment-index="2">
+<div id="symtab1" class="fragment" data-fragment-index="1">
+<table>
+<caption>Real symmetry classes</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><span class="math inline">\(s\)</span></th>
+<th style="text-align: left;">class</th>
+<th style="text-align: left;">symmetries</th>
+<th style="text-align: left;">comments</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(D\)</span></td>
+<td style="text-align: left;">none</td>
+<td style="text-align: left;">–</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(D\mathrm{I\!I\!I}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(T\)</span></td>
+<td style="text-align: left;">time reversal</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(A\mathrm{I\!I}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(T,Q\)</span></td>
+<td style="text-align: left;">charge</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(3\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(C\mathrm{I\!I}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(T,Q,C\)</span></td>
+<td style="text-align: left;">particle-hole symmetry</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(4\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(C\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(S_1,S_2,S_3\)</span></td>
+<td style="text-align: left;">spin rotations</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(5\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(C\mathrm I\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(S_1,S_2,S_3,T\)</span></td>
+<td style="text-align: left;">–</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(6\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(A\mathrm I\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(S_1,S_2,S_3,T,Q\)</span></td>
+<td style="text-align: left;">–</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(7\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(BD\mathrm I\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(S_1,S_2,S_3,T,Q,C\)</span></td>
+<td style="text-align: left;">–</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="fragment evaporate" data-fragment-index="2">
+<div id="syms" class="fragment" data-fragment-index="1">
+<p><span class="phl"><em>Time-reversal symmetry</em></span> <span class="math inline">\(T\)</span> is a quaternionic structure on <span class="math inline">\(V\)</span>. We extend it to <span class="math inline">\(W\)</span> by <span class="math display">\[
+    T\equiv
+    \begin{pmatrix}
+      T&amp;0\\ 0&amp;RTR^{-1}
+    \end{pmatrix}.
+  \]</span></p>
+<p>Physical <span class="phl"><em>spin rotations</em></span> <span class="math inline">\(S_\mu\in\mathrm U(V)\)</span>, <span class="math inline">\(\mu=1,2,3\)</span>, satisfy <span class="math display">\[
+    S_1S_2=-S_2S_1=S_3,\quad S_\mu^2=1,\quad TS_\mu=-S_\mu T,
+  \]</span> and are extended to <span class="math inline">\(W\)</span> by <span class="math display">\[
+    S_\mu\equiv
+    \begin{pmatrix}
+      S_\mu&amp;0\\0&amp;-RS_\mu R^{-1}
+    \end{pmatrix}.
+  \]</span></p>
+<p><span class="phl"><em>Charge</em></span> <span class="math inline">\(Q\)</span> assigns <span class="math inline">\(\pm1\)</span> to particle creation/annihilation operators, so <span class="math display">\[
+    Q=
+    \begin{pmatrix}
+      1&amp;0\\ 0&amp;-1
+    \end{pmatrix}\in\endo{V\oplus V^*}=\endo W.
+  \]</span></p>
+<p><span class="phl"><em>Particle-hole symmetry</em></span> is <span class="math inline">\(C\defi\gamma S\)</span> where <span class="math inline">\(S\in\mathrm U(V)\)</span> satisfies <span class="math display">\[
+    S^2=1,\quad[S,T]=[S,S_\mu]=0,
+  \]</span> and is extended to <span class="math inline">\(W\)</span> by <span class="math display">\[
+    S\equiv
+    \begin{pmatrix}
+      S&amp;0\\0&amp;RSR^{-1}
+    \end{pmatrix}.
+  \]</span></p>
+</div>
+</div>
+<style>
+  #csym3 {
+    opacity: 1;
+    visibility: inherit;
+  }
+
+  #csym3.visible {
+    -webkit-transform: scale(0.7) translate(-50%,28%);
+              transform: scale(0.7) translate(-50%,28%);   
+  }
+
+  #hamq.visible {
+    -webkit-transform: translate(35%,-90%) scale(0.9);
+            transform: translate(35%,-90%) scale(0.9);   
+  }
+</style>
+<div class="fragment ready" data-fragment-index="2">
+<div id="csym3" class="fragment" data-fragment-index="3">
+<table>
+<caption>Complex symmetry classes</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><span class="math inline">\(s\)</span></th>
+<th style="text-align: left;">class</th>
+<th style="text-align: left;">symmetries</th>
+<th style="text-align: left;">comments</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(A\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(Q\)</span></td>
+<td style="text-align: left;">charge</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(A\mathrm{I\!I\!I}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(Q,C\)</span></td>
+<td style="text-align: left;">particle-hole conjugation</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="hamq" class="fragment transru" data-fragment-index="3">
+<p><span class="ghl"><strong>Note</strong>:</span> If <span class="math inline">\([H,Q]=0\)</span> and <span class="math inline">\(\gamma H\gamma=-H\)</span>, then <span class="math display">\[
+    H\equiv
+    \begin{pmatrix}
+      H&amp;0\\ 0&amp;-RHR^{-1}
+    \end{pmatrix}
+  \]</span> so in this case, <span class="math inline">\(H\)</span> is determined by its restriction to <span class="math inline">\(\sh V\)</span>.</p>
+</div>
+</section><section id="symmetries-under-another-name" class="slide level2">
+<h2>Symmetries, under another name</h2>
+<p>How should the symmetries of a Hamiltonian be reflected on the ground state?</p>
+<div class="fragment">
+<p><span class="ghl">Idea</span> <span class="citation" data-cites="rk-mrz">(Kennedy and Zirnbauer 2016)</span>: assign <span class="phl"><em>pseudo-symmetries</em></span> to symmetries <span class="math inline">\(g\longmapsto J_\alpha\)</span> such that <span class="math display">\[
+  \forall g\in G_s\colon gH=Hg\quad\Longleftrightarrow\quad \forall \alpha=1,\dotsc,s\colon J_\alpha J=-JJ_\alpha
+\]</span> where <span class="math display">\[
+  \overline{J_\alpha}=J_\alpha\in\mathrm U(W),\quad J_\alpha J_\beta+J_\beta J_\alpha=-2\delta_{\alpha\beta}.
+\]</span></p>
+</div>
+<div class="fragment">
+<p>For <span class="math inline">\(s=0,1,2,3\)</span>, this can be achieved by setting <span class="math display">\[
+  J_1\defi J_T\defi \gamma T,\quad J_2\defi J_Q\defi i\gamma TQ,\quad J_3\defi J_C\defi i\gamma CQ=iSQ.
+\]</span></p>
+</div>
+<div class="fragment">
+<p>For <span class="math inline">\(s\sge 4\)</span>, one doubles <span class="math inline">\(W\)</span> to <span class="math inline">\(W\otimes\cplxs^2\)</span> and sets <span class="math display">\[
+  J_\mu\defi iS_\mu\otimes\sigma_z,\quad J_4\defi {\id}_W\otimes i\sigma_y,\quad J_{5/6/7}\defi J_{T/Q/C}\otimes\sigma_x.
+\]</span></p>
+</div>
+<div class="fragment">
+<blockquote>
+<p><strong class="ghl" style="font-style: normal;">Definition.</strong> A disordered IQPV <span class="math inline">\(J\)</span> is said to be <span class="yhl"><strong>in symmetry class <span class="math inline">\(s\)</span></strong></span> if (with <span class="math inline">\(J\equiv J\otimes\sigma_x\)</span> in case <span class="math inline">\(s\sge4\)</span>) <span class="math display">\[
+JJ_\alpha+J_\alpha J=0,\quad\forall\alpha=1,\dotsc,s.
+\]</span></p>
+</blockquote>
+</div>
+</section></section>
+<section><section id="mathematical-interlude" class="title-slide slide level1"><h1>Mathematical interlude ;)</h1></section><section id="clifford-algebras" class="slide level2">
+<h2>Clifford algebras</h2>
+<blockquote>
+<p><strong class="ghl" style="font-style: normal;">Definition.</strong> Let <span class="math inline">\(\Ccl_{r,s}\)</span> be the C<span class="math inline">\(^*\)</span>-algebra defined by unitary generators <span class="math inline">\(k_1,\dotsc,k_r,j_1,\dotsc,j_s\)</span> and relations <span class="math display">\[
+\left.
+\begin{aligned}
+&amp;k_ak_b+k_bk_a=2\delta_{ab}\\
+&amp;j_\alpha j_\beta+j_\beta j_\alpha=-2\delta_{\alpha\beta}\\ 
+&amp;k_aj_\alpha+j_\alpha k_a=0
+\end{aligned}\right\}\quad\forall a,b=1,\dotsc,r,\alpha,\beta=1,\dotsc,s.
+\]</span> This is the <span class="yhl"><strong>Clifford algebra</strong></span> with <span class="math inline">\(r\)</span> positive and <span class="math inline">\(s\)</span> negative generators.</p>
+</blockquote>
+<style>
+  #uni1 {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+
+  #uni1.visible {
+    opacity: 1;
+    visibility: inherit;
+    -webkit-transform: none;
+    transform: none;
+  }
+
+  #uni2 {
+    opacity: 1;
+    visibility: inherit;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+
+  #uni2.visible {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+    opacity: 0;
+  }
+
+  #real2 {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  #real2.visible {
+    opacity: 1;
+    visibility: inherit;    
+  }
+
+  #real3 {
+    opacity: 1;
+    visibility: inherit;
+    transition-delay: 0.15s;
+  }
+
+  #real3.visible {
+    -webkit-transform: translateY(-250%);
+    transform: translateY(-250%);
+  }
+
+  #real4 {
+    opacity: 1;
+    visibility: inherit;
+  }
+
+  #real4.visible {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+    opacity: 0;
+  }
+
+  #runi {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    transition: all 0.5s ease;
+    transition-delay: 0.35s;
+  }
+
+  #runi.visible {
+    opacity: 1;
+    visibility: inherit;  
+    -webkit-transform: translateY(-110%);
+    transform: translateY(-110%);  
+ }  
+
+  #runi4 {
+    opacity: 1;
+    visibility: inherit;
+    transition-delay: 0.15s;
+  }
+
+  #runi4.visible {
+    opacity: 1;
+    visibility: inherit;  
+    -webkit-transform: translateY(-45%);
+    transform: translateY(-45%);  
+  }  
+
+  #psymcl {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    transition: all 0.5s ease 0.35s;
+  }
+
+  #psymcl.visible {
+    opacity: 1;
+    visibility: inherit;  
+    -webkit-transform: translateY(-500%);
+    transform: translateY(-500%);  
+  }  
+</style>
+<div id="uni1" class="fragment" data-fragment-index="1">
+<div id="uni2" class="fragment" data-fragment-index="3">
+<p><strong class="ghl" style="font-style: normal;">Universal property.</strong> Let <span class="math inline">\(B\)</span> be a unital C<span class="math inline">\(^*\)</span>-algebra and <span class="math inline">\(K_1,\dotsc,K_r,J_1,\dotsc,J_s\in\mathrm U(B)\)</span> be such that <span class="math display">\[
+    \left.
+    \begin{aligned}
+        &amp;K_aK_b+K_bK_a=2\delta_{ab}\\
+        &amp;J_\alpha J_\beta+J_\beta J_\alpha=-2\delta_{\alpha\beta}\\ 
+        &amp;K_aJ_\alpha+J_\alpha K_a=0
+    \end{aligned}\right\}\quad\forall a,b=1,\dotsc,r,\alpha,\beta=1,\dotsc,s.  
+\]</span> Then there is a unique <span class="math inline">\(*\)</span>-morphism <span class="math display">\[
+  \Ccl_{r,s}\longrightarrow B,\quad
+  \left.
+  \begin{aligned}
+    &amp;k_a\\ &amp;j_\alpha
+  \end{aligned}\right\}\longmapsto\left\{
+  \begin{aligned}
+    &amp;K_a\\ &amp;J_\alpha
+  \end{aligned}\right..
+\]</span></p>
+</div>
+</div>
+<div id="real2" class="fragment" data-fragment-index="2">
+<div id="real3" class="fragment" data-fragment-index="3">
+<div id="real4" class="fragment" data-fragment-index="4">
+<p>In particular, we may define a real structure on <span class="math inline">\(\Ccl_{r,s}\)</span> by <span class="math display">\[
+  \overline{k_a}\defi k_a,\quad\overline{j_\alpha}\defi j_\alpha. 
+\]</span> Equipped with this real structure, we denote <span class="math inline">\(\Ccl_{r,s}\)</span> by <span class="math inline">\(\Cl_{r,s}\)</span>.</p>
+</div>
+</div>
+</div>
+<div id="runi" class="fragment" data-fragment-index="3">
+<div id="runi4" class="fragment" data-fragment-index="4">
+<p><strong class="ghl" style="font-style: normal;">Real universal property.</strong> Let <span class="math inline">\(B\)</span> be a unital <span class="yhl">real</span> C<span class="math inline">\(^*\)</span>-algebra and <span class="math inline">\(K_1,\dotsc,J_s\in\mathrm U(B)\)</span> be <span class="yhl">real</span> such that <span class="math display">\[
+    \left.
+    \begin{aligned}
+        &amp;K_aK_b+K_bK_a=2\delta_{ab}\\
+        &amp;J_\alpha J_\beta+J_\beta J_\alpha=-2\delta_{\alpha\beta}\\ 
+        &amp;K_aJ_\alpha+J_\alpha K_a=0
+    \end{aligned}\right\}\quad\forall a,b=1,\dotsc,r,\alpha,\beta=1,\dotsc,s.  
+\]</span> Then there is a unique <span class="yhl">real</span> <span class="math inline">\(*\)</span>-morphism <span class="math display">\[
+  \Ccl_{r,s}\longrightarrow B,\quad
+  \left.
+  \begin{aligned}
+    &amp;k_a\\ &amp;j_\alpha
+  \end{aligned}\right\}\longmapsto\left\{
+  \begin{aligned}
+    &amp;K_a\\ &amp;J_\alpha
+  \end{aligned}\right..
+\]</span></p>
+</div>
+</div>
+<div id="psymcl" class="fragment" data-fragment-index="4">
+<p>In particular, <span class="math inline">\(J_1,\dotsc,J_s\in\mathrm U(W)\)</span> define a real <span class="math inline">\(*\)</span>-morphism <span class="math display">\[
+  \Cl_{0,s}\longrightarrow\endo W.
+\]</span></p>
+</div>
+</section><section id="periodicity" class="slide level2">
+<h2>Periodicity</h2>
+<p>There is an isomorphism of real C<span class="math inline">\(^*\)</span>-algebras <span class="math inline">\(\Cl_{1,1}\longrightarrow M_2(\cplxs)\)</span>, defined by <span class="math display">\[
+    k_1\longmapsto\sigma_x,\quad j_1\longmapsto i\sigma_y.
+\]</span></p>
+<div class="fragment">
+<p>This induces the <span class="phl"><em>(1,1) periodicity</em></span> isomorphisms <span class="math display">\[
+    \Cl_{r+1,s+1}\cong \Cl_{r,s}\mathrel{\hat\otimes} M_2(\cplxs).
+\]</span> Here, the tensor product is <span class="phl"><em>graded</em></span> on the RHS, which means that <span class="math display">\[
+  (I\otimes\sigma)\cdot(I&#39;\otimes\sigma&#39;)\defi-(II&#39;)\otimes(\sigma\sigma&#39;),\quad\forall I,I&#39;\in\Braces{k_a,j_\alpha},\sigma,\sigma&#39;\in\Braces{\sigma_x,i\sigma_y}.
+\]</span></p>
+</div>
+<div class="fragment">
+<blockquote>
+<p><strong class="ghl" style="font-style: normal;">Proposition <span class="citation" data-cites="abs">(Atiyah, Bott, and Shapiro 1964)</span>.</strong> There are isomorphisms of real C<span class="math inline">\(^*\)</span>-algebras <span class="math display">\[
+\Cl_{0,r+2}\cong \Cl_{0,2}\otimes \Cl_{r,0},\quad \Cl_{r+2,0}\cong \Cl_{2,0}\otimes \Cl_{0,r}
+\]</span></p>
+</blockquote>
+</div>
+<div class="fragment">
+<p>Together with <span class="math display">\[
+  \Cl_{0,2}\cong\mathbb H_\cplxs,\quad \Cl_{2,0}\cong M_2(\cplxs),\quad\mathbb H_\cplxs\otimes\mathbb H_\cplxs\cong M_4(\cplxs),
+\]</span> this implies <span class="phl"><em>eightfold periodicity</em></span> <span class="math display">\[
+    \Cl_{0,8}\cong\Cl_{8,0}\cong \Cl_{0,2}\otimes \Cl_{0,2}\otimes \Cl_{2,0}\otimes \Cl_{2,0}\cong \mathbb H_\cplxs\otimes\mathbb H_\cplxs\otimes M_4(\cplxs)\cong M_{16}(\cplxs).
+\]</span></p>
+</div>
+</section><section id="real-k-theory" class="slide level2">
+<h2>Real K-theory</h2>
+<div class="fragment">
+<p>Let <span class="math inline">\(B\subseteq\sh L(\sh H)\)</span> be a real C<span class="math inline">\(^*\)</span>-algebra such that <span class="math inline">\(B\sh H=\sh H\)</span>. The <em>multiplier algebra</em> <span class="math inline">\(\mathrm M(B)\)</span> is the idealiser <span class="math display">\[
+  \mathrm M(B)\defi\Set{x\in\sh L(\sh H)}{xB\cup Bx\subseteq B}.
+\]</span> Let <span class="math inline">\(\knums\)</span> be the real C<span class="math inline">\(^*\)</span>-algebra of compact operators on some (separable) real Hilbert space. The <span class="phl"><em>stable multiplier algebra</em></span> and <span class="phl"><em>Calkin algebra</em></span> of <span class="math inline">\(B\)</span> are, respectively, <span class="math display">\[
+  \mathrm M^s(B)\defi\mathrm M(B\otimes\knums),\quad\mathrm Q^s(B)\defi\mathrm M^s(B)/(B\otimes\knums).
+\]</span></p>
+</div>
+<div class="fragment">
+<blockquote>
+<p><strong class="ghl" style="font-style: normal;">Definition <span class="citation" data-cites="kasparov-topell1">(Kasparov 1975)</span>.</strong> A <span class="yhl"><strong><span class="math inline">\(KR^{-p,q}\)</span> cycle</strong></span> is a pair <span class="math inline">\((\phi,\hat J)\)</span>, where <span class="math inline">\(\phi:\Cl_{q+1,p}\longrightarrow\mathrm M^s(B):k_a,j_\alpha\longmapsto K_a,J_\alpha\)</span> is a real <span class="math inline">\(*\)</span>-morphism and <span class="math inline">\(\hat J\in\mathrm M^s(B)\)</span> satisfies <span class="math display">\[
+\hat J^2\equiv-1\pmod{B\otimes\knums},\quad\hat J=-\hat J^*=\overline{\hat J},\quad \forall a,\alpha\colon\quad\hat JK_a+K_a\hat J=\hat JJ_\alpha+J_\alpha\hat J=0.
+\]</span> A cycle is called <strong>degenerate</strong> if <span class="math inline">\(\hat J^2=-1\)</span>. The <span class="yhl"><strong>real <span class="math inline">\(K\)</span>-theory</strong></span> of <span class="math inline">\(B\)</span> is <span class="math display">\[
+KR^{-p,q}(B)\defi\Braces{\text{$KR^{-p,q}$ cycles}}\bigm/\text{homotopy}.
+\]</span> This set has a natural Abelian group structure; degenerate cycles represent zero <span class="citation" data-cites="skandalis-kkrem">(Skandalis 1984)</span>.</p>
+</blockquote>
+</div>
+<div class="fragment">
+<p>We have an isomorphism <span class="math inline">\(KR^{-(p+1),q+1}(B)\cong KR^{-p,q}(B)\)</span>, and may define <span class="math display">\[
+  KR^{-p+q}(B)\defi KR^{-p,q}(B). 
+\]</span> Then we have <span class="math inline">\(KR^{-p+8}(B)\cong KR^{-p}(B)\)</span>.</p>
+</div>
+</section></section>
+<section><section id="invariants-unperturbed-by-disorder" class="title-slide slide level1"><h1>Invariants unperturbed by disorder</h1></section><section id="bulk-to-boundary-sequence" class="slide level2">
+<h2>Bulk-to-boundary sequence</h2>
+<div style="width: 80%">
+<p>We introduce a boundary <span class="math inline">\(\Lambda_\partial\defi\ints^{d-1}\times\{0\}\)</span>. To connect bulk and boundary, we consider the <span class="phl"><em>half-space</em></span> <span class="math display">\[
+  \hat\Lambda\defi\ints^{d-1}\times\nats,\quad\hat{\sh W}\defi\ell^2(\hat\Lambda)\otimes W.
+\]</span></p>
+</div>
+<div style="transform: translateY(-8em);">
+<p><img src="slides_files/figure-revealjs/unnamed-chunk-1-1.png" width="192" style="display: block; margin: auto 0 auto auto;" /></p>
+</div>
+<div class="fragment">
+<div style="transform: translateY(-10em);">
+<p>As a closed <span class="math inline">\(*\)</span>-subalgebra of <span class="math inline">\(\sh C(\Omega,\sh L(\sh W))\)</span>, <span class="math inline">\(\mathbb A\)</span> is generated by <span class="math display">\[
+  \begin{gathered}
+  \textstyle\sum_{x\in\Lambda}f(\omega\cdot x)\ket x\bra x,\ f\in\sh C(\Omega,\endo W),\\
+  U_1\defi U_{(1,0,\dotsc,0)},U_2\defi U_{(0,1,0,\dotsc,0)},\dotsc,U_d\defi U_{(0,\dotsc,0,1)}.
+  \end{gathered}
+\]</span></p>
+</div>
+</div>
+<div class="fragment">
+<div style="transform: translateY(-10em);">
+<p>Define the <span class="phl"><em>half-space algebra</em></span> <span class="math inline">\(\hat{\mathbb A}\)</span> to be the closed <span class="math inline">\(*\)</span>-subalgebra of <span class="math inline">\(\sh C(\Omega,\sh L(\hat{\sh W}))\)</span> generated by <span class="math display">\[
+  \textstyle\sum_{x\in\Lambda}f(\omega\cdot x)\ket x\bra x,\ f\in\sh C(\Omega,\endo W),\ U_1,\dotsc,U_{d-1},\ \hat U_d,
+\]</span> where <span class="math inline">\(\hat U_d\)</span> is the <span class="phl"><em>unilateral shift operator</em></span> <span class="math display">\[
+  \hat U_d\ket{x_1,\dotsc,x_d}\otimes w\defi\ket{x_1,\dotsc,x_{d-1},x_d+1}\otimes w,\quad x_d\sge0.
+\]</span></p>
+</div>
+</div>
+<div class="fragment">
+<div style="transform: translateY(-10em);">
+<p>The <span class="phl"><em>boundary algebra</em></span> <span class="math inline">\(\mathbb A_\partial\)</span> is defined just as <span class="math inline">\(\mathbb A\)</span>, but with <span class="math inline">\(\Lambda_\partial\cong\ints^{d-1}\)</span> in place of <span class="math inline">\(\Lambda=\ints^d\)</span>.</p>
+</div>
+</div>
+<div class="fragment">
+<div style="transform: translateY(-10em);">
+<p><strong class="ghl" style="font-style: normal;">Proposition <span class="citation" data-cites="skr00">(Schulz-Baldes, Kellendonk, and Richter 2000)</span>.</strong> The assignment <span class="math inline">\(\hat U_d\longmapsto U_d\)</span> induces a short exact sequence <span class="math display">\[
+\begin{CD}
+  0 @&gt;&gt;&gt; {\mathbb A_\partial\otimes\knums(\ell^2(\nats))} @&gt;&gt;&gt; {\hat{\mathbb A}} @&gt;&gt;&gt; {\mathbb A} @&gt;&gt;&gt; 0.
+\end{CD}
+\]</span></p>
+</div>
+</div>
+</section><section id="manufacturing-invariants" class="slide level2">
+<h2>Manufacturing invariants</h2>
+<p>Let <span class="math inline">\(J\in\mathbb A\)</span> be a disordered IQPV in symmetry class <span class="math inline">\(s\)</span>. Let <span class="math display">\[
+  q:\sh W\longrightarrow\hat{\sh W}
+\]</span> be the orthogonal projection and define <span class="math display">\[
+  \hat J\defi qJq\in\sh C\Parens{\Omega,\sh L(\hat{\sh W})}.
+\]</span></p>
+<div class="fragment">
+<p>Then we have <span class="math display">\[
+  \hat J^2\equiv-1\pmod{\mathbb A_\partial\otimes\knums},\quad\hat J=-\hat J^*=\overline{\hat J},\quad \forall \alpha=1,\dotsc,s\colon\quad\hat JJ_\alpha+J_\alpha\hat J=0.
+\]</span> Doubling <span class="math inline">\(W\)</span> to <span class="math inline">\(W\otimes\cplxs^2\)</span> and using <span class="math inline">\((1,1)\)</span> periodicity, we obtain <span class="math display">\[
+  K_1\defi 1\otimes\sigma_x,\quad \hat J\equiv\hat J\otimes\sigma_x,\ J_1\equiv J_1\otimes\sigma_x,\dotsc,J_s\equiv J_s\equiv J_s\otimes\sigma_x,\ J_{s+1}\defi1\otimes i\sigma_y.
+\]</span></p>
+</div>
+<div class="fragment">
+<p>Because <span class="math inline">\(\hat J\)</span> idealises <span class="math inline">\(\mathbb A_\partial\otimes\knums(\ell^2(\nats))\)</span>, we have <span class="math inline">\(\hat J\in M^s(\mathbb A_\partial\otimes\knums)\)</span>, so that <span class="math inline">\(\hat J\)</span> represents a <span class="math inline">\(KR\)</span> class <span class="math display">\[
+  [J]_\partial\in KR^{-(s+1)}(\mathbb A_\partial).
+\]</span></p>
+<blockquote>
+<p><strong class="ghl" style="font-style: normal;">Definition.</strong> We call <span class="math inline">\([J]_\partial\)</span> the <span class="yhl"><strong>boundary class</strong></span> of the disordered IQPV <span class="math inline">\(J\)</span>.</p>
+</blockquote>
+</div>
+</section><section id="effects-of-disorder-or-their-absence" class="slide level2">
+<h2>Effects of disorder (or their absence)</h2>
+<p>Assume that <span class="math inline">\(\Omega\)</span> is a <span class="phl"><em>Bernoulli shift</em></span>, <em>i.e.</em> an infinite product of on-site disorder configurations: <span class="math display">\[
+  \Omega=\textstyle\prod_\Lambda\Omega_0.
+\]</span> Fix some disorder configuration <span class="math inline">\(\omega_0\in\Omega\)</span>. There are real <span class="math inline">\(*\)</span>-morphisms <span class="math display">\[
+  \iota:C^*_u(\Lambda,W)^{\ints^d}\longrightarrow\mathbb A:O\longmapsto(\omega\longmapsto O),\quad\eps_{\omega_0}:\mathbb A\longrightarrow C^*_u(\Lambda,W)^{\ints^d}:O\longmapsto O_{\omega_0}.
+\]</span></p>
+<div class="fragment">
+<p>Then <span class="math inline">\(\eps_{\omega_0}\circ\iota={\id}\)</span> and if <span class="phl"><em><span class="math inline">\(\Omega_0\)</span> is contractible</em></span>, then <span class="math inline">\(\iota\circ\eps_{\omega_0}\simeq{\id}\)</span>.</p>
+<div style="width: 70%; padding: 10px 20px; font-style: italic; background: rgba(255, 255, 255, 0.05); box-shadow: 0px 0px 5px rgba(0, 0, 10, 0.2);">
+<p><strong class="ghl" style="font-style: normal;">Proposition.</strong> If <span class="math inline">\(\Omega\)</span> is the Bernoulli shift of a contractible space, then <span class="math display">\[
+  \begin{gathered}
+    KR^{-s}(\mathbb A)\cong KR^{-s}(\reals^d/\Lambda)=KR^{-s}(\mathbb T^d),\\
+    KR^{-(s+1)}(\mathbb A_\partial)=KR^{-(s+1)}(\mathbb T^{d-1})=KR^{-(s+2)}(\mathbb T^d).
+  \end{gathered}
+\]</span> So the <span class="math inline">\(KR\)</span>-groups are not sensitive to sufficiently ‘small’ disorder.</p>
+</div>
+</div>
+<div class="fragment">
+<p>In particular, we obtain <span class="math display">\[
+  KR^{-(s+2)}(\mathbb A)=KR^{-(s-d+2)}(\mathrm{pt}).
+\]</span></p>
+<div style="transform: scale(0.7) translate(24em,-24em);">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><span class="math inline">\(s\)</span></th>
+<th style="text-align: left;">class</th>
+<th style="text-align: left;"><span class="math inline">\(KR^{-(s+2)}(\mathrm{pt})\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(D\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\ints/2\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(D\mathrm{I\!I\!I}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(A\mathrm{I\!I}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\ints\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(3\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(C\mathrm{I\!I}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(4\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(C\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(5\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(C\mathrm I\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(6\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(A\mathrm I\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\ints\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(7\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(BD\mathrm I\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\ints/2\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section><section id="bulk-boundary-correspondence" class="slide level2">
+<h2>Bulk-boundary correspondence</h2>
+<p>There is a way to assign, to every disordered IQPV <span class="math inline">\(J\)</span> in symmetry class <span class="math inline">\(s\)</span>, a <span class="phl"><em>bulk class</em></span> <span class="math display">\[
+  [J]\in KR^{-(s+2)}(\mathbb A).
+\]</span> This uses a different picture of <span class="math inline">\(KR\)</span>-theory <span class="citation" data-cites="van_Daele1">(Van Daele 1988)</span>.</p>
+<div class="fragment">
+<p>The bulk-to-boundary sequence induces a <span class="phl"><em>long exact sequence</em></span> in <span class="math inline">\(KR\)</span> theory, <span class="math display">\[
+\begin{CD}
+\dotsm @&gt;&gt;&gt; KR^{-(s+2)}(\mathbb A_\partial) @&gt;&gt;&gt; KR^{-(s+2)}(\hat{\mathbb A}) @&gt;&gt;&gt; KR^{-(s+2)}(\mathbb A)\\
+ @&gt;{\partial}&gt;&gt; KR^{-(s+1)}(\mathbb A_\partial) @&gt;&gt;&gt; KR^{-(s+1)}(\hat{\mathbb A}) @&gt;&gt;&gt; KR^{-(s+1)}(\mathbb A) @&gt;&gt;&gt; \dotsm
+\end{CD}
+\]</span></p>
+<blockquote>
+<p><strong class="ghl" style="font-style: normal;">Theorem (A–C. Max).</strong> Under the boundary map in the long exact <span class="math inline">\(KR\)</span> theory sequence, bulk and boundary classes correspond: <span class="math display">\[
+\partial[J]=[J]_\partial.
+\]</span></p>
+</blockquote>
+<p>As a corollary, if the bulk phase <span class="math inline">\([J]\neq0\)</span>, then <span class="math inline">\(\hat J\)</span> is gapless.</p>
+</div>
+</section><section id="references" class="slide level2 unnumbered">
+<h2>References</h2>
+<div id="refs" class="references">
+<div id="ref-abs">
+<p>Atiyah, M.F., R. Bott, and A. Shapiro. 1964. “Clifford Modules.” <em>Topology</em> 3 (suppl. 1): 3–38. doi:<a href="https://doi.org/10.1016/0040-9383(64)90003-5">10.1016/0040-9383(64)90003-5</a>.</p>
+</div>
+<div id="ref-b86">
+<p>Bellissard, J. 1986. “<span class="math inline">\(K\)</span>-Theory of <span class="math inline">\(C^\ast\)</span>-Algebras in Solid State Physics.” In <em>Statistical Mechanics and Field Theory: Mathematical Aspects (Groningen, 1985)</em>, 257:99–156. Lecture Notes in Phys. Berlin: Springer. doi:<a href="https://doi.org/10.1007/3-540-16777-3_74">10.1007/3-540-16777-3_74</a>.</p>
+</div>
+<div id="ref-b89">
+<p>———. 1992. “Gap Labelling Theorems for Schrödinger Operators.” In <em>From Number Theory to Physics, Les Houches, 1989</em>, 538–630. Berlin: Springer.</p>
+</div>
+<div id="ref-kasparov-topell1">
+<p>Kasparov, G.G. 1975. “Topological Invariants of Elliptic Operators. I. <span class="math inline">\(K\)</span>-Homology.” <em>Izv. Akad. Nauk SSSR Ser. Mat.</em> 9 (4): 751–92.</p>
+</div>
+<div id="ref-rk-mrz">
+<p>Kennedy, R., and M.R. Zirnbauer. 2016. “Bott Periodicity for <span class="math inline">\(\mathbb{Z}_2\)</span> Symmetric Ground States of Gapped Free-Fermion Systems.” <em>Comm. Math. Phys.</em> 342: 909–63. doi:<a href="https://doi.org/10.1007/s00220-015-2512-8">10.1007/s00220-015-2512-8</a>.</p>
+</div>
+<div id="ref-roe">
+<p>Roe, J. 2003. <em>Lectures on Coarse Geometry</em>. University Series. American Mathematical Society.</p>
+</div>
+<div id="ref-skr00">
+<p>Schulz-Baldes, H., J. Kellendonk, and T. Richter. 2000. “Simultaneous Quantization of Edge and Bulk Hall Conductivity.” <em>J. Phys. A</em> 33 (2): L27–L32. doi:<a href="https://doi.org/10.1088/0305-4470/33/2/102">10.1088/0305-4470/33/2/102</a>.</p>
+</div>
+<div id="ref-skandalis-kkrem">
+<p>Skandalis, G. 1984. “Some Remarks on Kasparov Theory.” <em>J. Funct. Anal.</em> 56 (3): 337–47. doi:<a href="https://doi.org/10.1016/0022-1236(84)90081-8">10.1016/0022-1236(84)90081-8</a>.</p>
+</div>
+<div id="ref-van_Daele1">
+<p>Van Daele, A. 1988. “<span class="math inline">\(K\)</span>-Theory for Graded Banach Algebras. I.” <em>Quart. J. Math. Oxford Ser. (2)</em> 39 (154): 185–99. doi:<a href="https://doi.org/10.1093/qmath/39.2.185">10.1093/qmath/39.2.185</a>.</p>
+</div>
+</div>
+</section></section>
+    </div>
+  </div>
+
+  <script src="slides_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="slides_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+        // Display a presentation progress bar
+        progress: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Transition style
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'slides_files/reveal.js-3.3.0.1/plugin/notes/notes.js', async: true },
+          { src: 'slides_files/reveal.js-3.3.0.1/plugin/zoom-js/zoom.js', async: true },
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>
